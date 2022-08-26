@@ -1,5 +1,7 @@
 package com.cheil.smartcare
 
+import android.app.admin.DevicePolicyManager
+import android.content.ComponentName
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -13,6 +15,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.appcompat.app.AppCompatActivity
 import com.cheil.smartcare.databinding.ActivityMainBinding
+import com.cheil.smartcare.receiver.KioskDeviceAdminReceiver
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,7 +29,14 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.appBarMain.toolbar)
 
         // 상단 툴바 제거
-        supportActionBar!!.hide()
+        supportActionBar?.hide()
+        //supportActionBar!!.hide()
+
+        val componentName = ComponentName(this, KioskDeviceAdminReceiver::class.java)
+        val policyManager = getSystemService(DEVICE_POLICY_SERVICE) as DevicePolicyManager
+        if (policyManager.isAdminActive(componentName)) {
+
+        }
 
         binding.appBarMain.fab?.setOnClickListener { view ->
             Snackbar.make(view, "Voice Recognition", Snackbar.LENGTH_LONG)

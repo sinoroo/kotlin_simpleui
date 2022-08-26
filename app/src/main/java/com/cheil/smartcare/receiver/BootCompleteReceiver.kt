@@ -1,10 +1,11 @@
-package com.cheil.smartcare
+package com.cheil.smartcare.receiver
 
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.util.Log
+import com.cheil.smartcare.MainActivity
 
 
 /* 시작 시 자동으로 앱을 실행 시키는 리시버 */

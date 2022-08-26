@@ -1,6 +1,7 @@
 package com.cheil.smartcare.ui.settings
 
 
+import android.app.admin.DevicePolicyManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,10 +9,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.cheil.smartcare.MainActivity
 import com.cheil.smartcare.databinding.FragmentSettingsBinding
-import android.app.admin.DevicePolicyManager
-import android.content.Context
-import com.cheil.smartcare.KioskDeviceAdminReceiver
+import com.google.android.material.snackbar.Snackbar
 
 
 class SettingsFragment : Fragment() {
@@ -23,6 +23,7 @@ class SettingsFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var mDpm: DevicePolicyManager
+    private var mIsKioskEnabled = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,22 +35,23 @@ class SettingsFragment : Fragment() {
 
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        /*
 
         val startLockButton: Button = binding.buttonStartLock
-        val buttonEndLock: Button = binding.buttonEndLock
-        startLockButton.setOnClickListener{
-
-            val deviceAdmin = KioskDeviceAdminReceiver.getComponentName(this)
-            val mDpm = getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
-            if (!mDpm.isAdminActive(deviceAdmin)) {
-                startLockTask()
-            } else {
-                // Because the package isn't allowlisted, calling startLockTask() here
-                // would put the activity into screen pinning mode.
-            }
+        startLockButton.setOnClickListener{ view ->
+            Snackbar.make(view, "StartLock", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show()
+            (activity as MainActivity).startLockTask()
+            mIsKioskEnabled = true
         }
-        */
+
+        val buttonEndLock: Button = binding.buttonEndLock
+        buttonEndLock.setOnClickListener { view ->
+            Snackbar.make(view, "EndLock", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show()
+            (activity as MainActivity).stopLockTask()
+            mIsKioskEnabled = false
+        }
+
         return root
     }
 

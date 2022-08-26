@@ -1,11 +1,10 @@
-package com.cheil.smartcare
+package com.cheil.smartcare.receiver
 
 import android.annotation.SuppressLint
 import android.app.admin.DeviceAdminReceiver
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.icu.text.SimpleDateFormat
 import android.os.Build
 import android.os.UserHandle

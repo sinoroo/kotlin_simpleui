@@ -30,7 +30,7 @@
         </activity>
 
         <receiver
-            android:name="com.cheil.smartcare.BootCompleteReceiver"
+            android:name="com.cheil.smartcare.receiver.BootCompleteReceiver"
             android:enabled="true"
             android:exported="false"
             android:directBootAware="true"
@@ -41,7 +41,7 @@
         </receiver>
 
         <receiver
-            android:name="com.cheil.smartcare.KioskDeviceAdminReceiver"
+            android:name="com.cheil.smartcare.receiver.KioskDeviceAdminReceiver"
             android:permission="android.permission.BIND_DEVICE_ADMIN"
             android:exported="false">
             <meta-data
