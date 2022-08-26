@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         supportActionBar!!.hide()
 
         binding.appBarMain.fab?.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+            Snackbar.make(view, "Voice Recognition", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
         val navHostFragment =

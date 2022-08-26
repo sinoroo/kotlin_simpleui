@@ -7,7 +7,7 @@ android {
     compileSdk 32
 
     defaultConfig {
-        applicationId 'com.cheil.smartcare_v01'
+        applicationId 'com.cheil.smartcare'
         minSdk 28
         targetSdk 32
         versionCode 1

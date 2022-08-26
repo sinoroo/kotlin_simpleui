@@ -41,9 +41,9 @@ class TransformFragment : Fragment() {
 
         val recyclerView = binding.recyclerviewTransform
         val adapter = TransformAdapter()
-        recyclerView.adapter = adapter
+        //recyclerView.adapter = adapter
         transformViewModel.texts.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
+            //adapter.submitList(it)
         }
         return root
     }
