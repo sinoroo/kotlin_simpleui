@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">SmartCare</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title" translatable="false">CHEIL ELECTRIC</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">설정</string>
+
+    <string name="menu_home">홈</string>
+    <string name="menu_securityOffice">경비실</string>
+    <string name="menu_lights">조명</string>
+    <string name="menu_settings">설정</string>
+
+    <string name="fab_content_description">음성인식</string>
+    <string name="image_view_item_transform_content_description">Represents an image view in the
+        item
+    </string>
+</resources>
