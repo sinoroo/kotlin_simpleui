@@ -2,25 +2,32 @@ package com.cheil.smartcare
 
 import android.app.admin.DevicePolicyManager
 import android.content.ComponentName
+import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.navigation.NavigationView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.appcompat.app.AppCompatActivity
 import com.cheil.smartcare.databinding.ActivityMainBinding
 import com.cheil.smartcare.receiver.KioskDeviceAdminReceiver
+import com.google.android.material.navigation.NavigationView
+import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+    //private val KIOSK_PACKAGE = "com.cheil.smartcare"
+    //private val APP_PACKAGES = arrayOf(KIOSK_PACKAGE)
+
+    var PACKAGE_NAME: String? = null
+    private lateinit var mDpm: DevicePolicyManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,14 +35,28 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.appBarMain.toolbar)
 
+        PACKAGE_NAME = applicationContext.packageName
+
         // 상단 툴바 제거
         supportActionBar?.hide()
         //supportActionBar!!.hide()
 
-        val componentName = ComponentName(this, KioskDeviceAdminReceiver::class.java)
-        val policyManager = getSystemService(DEVICE_POLICY_SERVICE) as DevicePolicyManager
-        if (policyManager.isAdminActive(componentName)) {
+        val deviceAdmin = KioskDeviceAdminReceiver.getComponentName(this)
+        mDpm = getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
+        if (!mDpm.isAdminActive(deviceAdmin)) {
+            Toast.makeText(this, "not device admin", Toast.LENGTH_SHORT).show()
+            //val nextIntent = Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN)
+            //nextIntent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, deviceAdmin)
+            //startActivity(nextIntent)
+        }
 
+        if (mDpm.isDeviceOwnerApp(packageName)) {
+            mDpm.setLockTaskPackages(deviceAdmin, arrayOf(packageName))
+        } else {
+            Toast.makeText(this, "not device owner", Toast.LENGTH_SHORT).show()
+        }
+        if (mDpm.isLockTaskPermitted(packageName)) {
+            startLockTask()
         }
 
         binding.appBarMain.fab?.setOnClickListener { view ->
@@ -95,4 +116,5 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
+
 }

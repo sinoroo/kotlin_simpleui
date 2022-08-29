@@ -1,5 +1,6 @@
 package com.cheil.smartcare.receiver
 
+import android.app.ActivityOptions
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -25,6 +26,7 @@ class BootCompleteReceiver : BroadcastReceiver() {
             // For Android 9 and below
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                //context.startActivity(i, options.toBundle())
                 context.startActivity(i)
             }
 
