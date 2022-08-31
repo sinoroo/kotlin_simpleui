@@ -1,9 +1,13 @@
 package com.cheil.smartcare
 
+import android.app.PendingIntent
 import android.app.admin.DevicePolicyManager
-import android.content.ComponentName
 import android.content.Context
+import android.content.Intent
+import android.content.Intent.getIntent
 import android.os.Bundle
+import android.os.Process
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -19,12 +23,11 @@ import com.cheil.smartcare.receiver.KioskDeviceAdminReceiver
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
-    //private val KIOSK_PACKAGE = "com.cheil.smartcare"
-    //private val APP_PACKAGES = arrayOf(KIOSK_PACKAGE)
 
     var PACKAGE_NAME: String? = null
     private lateinit var mDpm: DevicePolicyManager

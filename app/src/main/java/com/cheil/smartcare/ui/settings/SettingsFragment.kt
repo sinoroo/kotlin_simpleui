@@ -42,6 +42,7 @@ class SettingsFragment : Fragment() {
                 .setAction("Action", null).show()
             (activity as MainActivity).startLockTask()
             mIsKioskEnabled = true
+            throw RuntimeException()
         }
 
         val buttonEndLock: Button = binding.buttonEndLock
