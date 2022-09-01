@@ -41,8 +41,8 @@ class SettingsFragment : Fragment() {
             Snackbar.make(view, "StartLock", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
             (activity as MainActivity).startLockTask()
+            (activity as MainActivity).hideSystemUI()
             mIsKioskEnabled = true
-            throw RuntimeException()
         }
 
         val buttonEndLock: Button = binding.buttonEndLock
@@ -50,6 +50,7 @@ class SettingsFragment : Fragment() {
             Snackbar.make(view, "EndLock", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
             (activity as MainActivity).stopLockTask()
+            (activity as MainActivity).showSystemUI()
             mIsKioskEnabled = false
         }
 
