@@ -1,6 +1,5 @@
-package com.cheil.smartcare.receiver
+package com.cheil.smartcare.receivers
 
-import android.app.ActivityOptions
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent

@@ -1,14 +1,9 @@
 package com.cheil.smartcare
 
-import android.app.PendingIntent
 import android.app.admin.DevicePolicyManager
 import android.content.Context
-import android.content.Intent
-import android.content.Intent.getIntent
 import android.os.Build
 import android.os.Bundle
-import android.os.Process
-import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -18,9 +13,8 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.cheil.smartcare.BuildConfig.VERSION_CODE
 import com.cheil.smartcare.databinding.ActivityMainBinding
-import com.cheil.smartcare.receiver.KioskDeviceAdminReceiver
+import com.cheil.smartcare.receivers.KioskDeviceAdminReceiver
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 
@@ -30,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
     private lateinit var mDpm: DevicePolicyManager
-    private var PACKAGE_NAME: String? = null
+    //private var PACKAGE_NAME: String? = null
 
     var mDecorView: View? = null
 
@@ -40,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.appBarMain.toolbar)
 
-        PACKAGE_NAME = applicationContext.packageName
+        //PACKAGE_NAME = applicationContext.packageName
 
         // 상단 툴바 제거
         supportActionBar?.hide()

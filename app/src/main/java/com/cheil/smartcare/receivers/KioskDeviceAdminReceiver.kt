@@ -1,4 +1,4 @@
-package com.cheil.smartcare.receiver
+package com.cheil.smartcare.receivers
 
 import android.annotation.SuppressLint
 import android.app.admin.DeviceAdminReceiver

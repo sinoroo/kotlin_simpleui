@@ -13,4 +13,6 @@
     <string name="menu_settings">Settings</string>
     <string name="action_settings">Settings</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="device_admin_explanation">For experimentation purposes only</string>
+    <string name="clear_all">Clear All</string>
 </resources>

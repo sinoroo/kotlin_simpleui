@@ -18,20 +18,31 @@
         android:theme="@style/Theme.TestRA"
         tools:targetApi="31">
         <activity
+            android:name="com.cheil.smartcare.LoginAttemptsActivity"
+            android:exported="true"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name="com.cheil.smartcare.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:resizeableActivity="true"
             android:theme="@style/Theme.TestRA.NoActionBar"
             tools:targetApi="24">
+            <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            -->
         </activity>
 
         <receiver
-            android:name="com.cheil.smartcare.receiver.BootCompleteReceiver"
+            android:name="com.cheil.smartcare.receivers.BootCompleteReceiver"
             android:enabled="true"
             android:exported="false"
             android:directBootAware="true"
@@ -42,7 +53,7 @@
         </receiver>
 
         <receiver
-            android:name="com.cheil.smartcare.receiver.KioskDeviceAdminReceiver"
+            android:name="com.cheil.smartcare.receivers.KioskDeviceAdminReceiver"
             android:permission="android.permission.BIND_DEVICE_ADMIN"
             android:exported="false">
             <meta-data
