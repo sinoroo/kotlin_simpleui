@@ -1,6 +1,7 @@
 package com.cheil.smartcare
 
 import android.app.admin.DevicePolicyManager
+import android.content.ComponentName
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
@@ -40,21 +41,22 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
         //supportActionBar!!.hide()
 
-        val deviceAdmin = KioskDeviceAdminReceiver.getComponentName(this)
-        mDpm = getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
-        if (!mDpm.isAdminActive(deviceAdmin)) {
+        val componentName = ComponentName(this, KioskDeviceAdminReceiver::class.java)
+        val policyManager = getSystemService(DEVICE_POLICY_SERVICE) as DevicePolicyManager
+
+        if (!policyManager.isAdminActive(componentName)) {
             Toast.makeText(this, "not device admin", Toast.LENGTH_SHORT).show()
             //val nextIntent = Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN)
             //nextIntent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, deviceAdmin)
             //startActivity(nextIntent)
         }
 
-        if (mDpm.isDeviceOwnerApp(packageName)) {
-            mDpm.setLockTaskPackages(deviceAdmin, arrayOf(packageName))
+        if (policyManager.isDeviceOwnerApp(packageName)) {
+            policyManager.setLockTaskPackages(componentName, arrayOf(packageName))
         } else {
             Toast.makeText(this, "not device owner", Toast.LENGTH_SHORT).show()
         }
-        if (mDpm.isLockTaskPermitted(packageName)) {
+        if (policyManager.isLockTaskPermitted(packageName)) {
             startLockTask()
         }
 

@@ -7,8 +7,9 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
-        android:name="MainApplication"
+        android:name=".MainApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -19,17 +20,21 @@
         android:testOnly="true"
         android:theme="@style/Theme.TestRA"
         tools:targetApi="31">
+
         <activity
-            android:name="com.cheil.smartcare.LoginAttemptsActivity"
+            android:name=".LoginAttemptsActivity"
             android:exported="true"
             android:noHistory="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity
-            android:name="com.cheil.smartcare.MainActivity"
+            android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:resizeableActivity="true"
@@ -42,22 +47,24 @@
             </intent-filter>
             -->
         </activity>
-
+        <activity
+            android:name=".BleDeviceScanActivity"
+            android:parentActivityName=".MainActivity"
+            android:exported="false" />
         <receiver
-            android:name="com.cheil.smartcare.receivers.BootCompleteReceiver"
+            android:name=".receivers.BootCompleteReceiver"
+            android:directBootAware="true"
             android:enabled="true"
             android:exported="false"
-            android:directBootAware="true"
             tools:targetApi="n">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-
         <receiver
-            android:name="com.cheil.smartcare.receivers.KioskDeviceAdminReceiver"
-            android:permission="android.permission.BIND_DEVICE_ADMIN"
-            android:exported="false">
+            android:name=".receivers.KioskDeviceAdminReceiver"
+            android:exported="false"
+            android:permission="android.permission.BIND_DEVICE_ADMIN">
             <meta-data
                 android:name="android.app.device_admin"
                 android:resource="@xml/device_admin_metadata" />
@@ -70,7 +77,6 @@
                 <action android:name="android.app.action.ACTION_PASSWORD_SUCCEEDED" />
             </intent-filter>
         </receiver>
-
     </application>
 
 </manifest>

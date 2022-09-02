@@ -19,4 +19,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/move_ble_scan_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ble"
+        app:layout_constraintTop_toBottomOf="@+id/text_reflow"
+        tools:layout_editor_absoluteX="42dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
