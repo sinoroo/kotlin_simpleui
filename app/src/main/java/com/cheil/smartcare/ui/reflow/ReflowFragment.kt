@@ -1,5 +1,6 @@
 package com.cheil.smartcare.ui.reflow
 
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -27,6 +28,7 @@ class ReflowFragment : Fragment() {
 
         _binding = FragmentReflowBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
 
         val textView: TextView = binding.textReflow
         reflowViewModel.text.observe(viewLifecycleOwner) {

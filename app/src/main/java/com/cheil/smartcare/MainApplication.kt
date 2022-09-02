@@ -22,7 +22,7 @@ class MainApplication : Application() {
     private inner class UncaughtExceptionHandler : Thread.UncaughtExceptionHandler {
         override fun uncaughtException(t: Thread, e: Throwable) {
             Log.d(TAG, "Crash!!!")
-            val restartIntent = Intent(applicationContext, MainActivity::class.java)
+            val restartIntent = Intent(applicationContext, LoginAttemptsActivity::class.java)
             val runner = PendingIntent.getActivity(
                 applicationContext,
                 99,

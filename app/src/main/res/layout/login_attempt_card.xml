@@ -30,10 +30,10 @@
                 android:id="@+id/v_success"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:background="@drawable/ic_baseline_check_circle_24"
-                android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:backgroundTint="@color/green"/>
+                android:layout_alignParentRight="true"
+                android:background="@drawable/ic_baseline_check_circle_24"
+                android:backgroundTint="@color/green" />
         </RelativeLayout>
 
         <TextView
