@@ -2,6 +2,7 @@ package com.cheil.smartcare.ui.reflow
 
 import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,14 +41,6 @@ class ReflowFragment : Fragment() {
             textView.text = it
         }
 
-        val bleScanBtn: Button = binding.moveBleScanBtn
-
-        //val bleScanBtn: Button = findViewById(R.id.move_ble_scan_btn)
-
-        bleScanBtn.setOnClickListener {
-            val nextIntent = Intent(activity as MainActivity, BleDeviceScanActivity::class.java)
-            startActivity(nextIntent)
-        }
         return root
     }
 

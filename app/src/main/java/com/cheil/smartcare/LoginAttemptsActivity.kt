@@ -26,7 +26,9 @@ class LoginAttemptsActivity : AppCompatActivity() {
 
         val componentName = ComponentName(this, KioskDeviceAdminReceiver::class.java)
         val policyManager = getSystemService(DEVICE_POLICY_SERVICE) as DevicePolicyManager
-
+        
+        // 시작 시 관리자 권한 승인에 대해서 
+        // 사용자에게 확인하는 코드
         /*
         if (policyManager.isAdminActive(componentName)) {
             Log.v("$$$$$$", "Admin is already activated")
@@ -47,6 +49,8 @@ class LoginAttemptsActivity : AppCompatActivity() {
 
         val fabClearAll = findViewById<FloatingActionButton>(R.id.fab_clear_all)
         fabClearAll.setOnClickListener {
+            // DB 로그인
+            // 추후 서버 접속 구현 시 참고
             /*
             val dbHelper = LoginAttemptsDbHelper(this)
             dbHelper.deleteAllAttempts()

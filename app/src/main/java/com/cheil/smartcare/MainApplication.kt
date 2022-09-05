@@ -6,11 +6,18 @@ import android.content.Intent
 import com.cheil.smartcare.MainActivity
 import android.app.PendingIntent
 import android.app.AlarmManager
+import android.bluetooth.BluetoothAdapter
+import android.bluetooth.BluetoothManager
+import android.content.Context
 import android.util.Log
 
 class MainApplication : Application() {
     var defaultUncaughtExceptionHandler: Thread.UncaughtExceptionHandler? = null
         private set
+    private val bluetoothAdapter: BluetoothAdapter? by lazy(LazyThreadSafetyMode.NONE) {
+        val bluetoothManager = getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
+        bluetoothManager.adapter
+    }
 
     override fun onCreate() {
         super.onCreate()
@@ -22,7 +29,7 @@ class MainApplication : Application() {
     private inner class UncaughtExceptionHandler : Thread.UncaughtExceptionHandler {
         override fun uncaughtException(t: Thread, e: Throwable) {
             Log.d(TAG, "Crash!!!")
-            val restartIntent = Intent(applicationContext, LoginAttemptsActivity::class.java)
+            val restartIntent = Intent(applicationContext, MainActivity::class.java)
             val runner = PendingIntent.getActivity(
                 applicationContext,
                 99,

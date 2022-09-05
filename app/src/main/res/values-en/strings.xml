@@ -15,4 +15,9 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="device_admin_explanation">For experimentation purposes only</string>
     <string name="clear_all">Clear All</string>
+    <string name="end_lock">Stop Kioskmode</string>
+    <string name="start_lock">Start Kioskmode</string>
+    <string name="button_bt_settings">Call BlueTooth Settings</string>
+    <string name="button_wifi_settings">Call WIFI Settings</string>
+    <string name="button_scan_ble">Scan BLE</string>
 </resources>
