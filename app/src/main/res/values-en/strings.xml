@@ -20,4 +20,7 @@
     <string name="button_bt_settings">Call BlueTooth Settings</string>
     <string name="button_wifi_settings">Call WIFI Settings</string>
     <string name="button_scan_ble">Scan BLE</string>
+    <string name="medicine_info">약 드실 시간입니다.</string>
+    <string name="health_info">건강정보</string>
+    <string name="stay_mode">외출모드</string>
 </resources>

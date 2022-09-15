@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCEPT_NETWORK_STATE" />
 
     <application
         android:name=".MainApplication"
@@ -42,8 +43,17 @@
             tools:targetApi="24">
 
             <intent-filter>
+                <!-- 시작 시 자동 실행을 위해 필요한 선언 -->
+
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
+
+                <!-- 홈 런처를 만들 때 필요한 선언 -->
+                <!--
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.HOME" />
+                -->
+                <!-- 홈 런처를 만들 때 필요한 선언 -->
             </intent-filter>
 
         </activity>
