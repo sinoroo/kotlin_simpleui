@@ -121,24 +121,30 @@
                     <Button
                         android:id="@+id/button"
                         android:layout_width="wrap_content"
-                        android:layout_height="80dp"
-                        android:layout_marginRight="8dp"
+                        android:layout_height="match_parent"
                         android:layout_marginLeft="8dp"
-                        android:text="유튜브" />
+                        android:layout_marginRight="8dp"
+                        android:drawableTop="@drawable/ic_youtube_48"
+                        android:text="유튜브"
+                        android:textSize="16sp" />
 
                     <Button
                         android:id="@+id/button2"
                         android:layout_width="wrap_content"
-                        android:layout_height="80dp"
+                        android:layout_height="match_parent"
                         android:layout_marginRight="8dp"
-                        android:text="생활" />
+                        android:drawableTop="@android:drawable/ic_menu_call"
+                        android:text="생활"
+                        android:textSize="16dp" />
 
                     <Button
                         android:id="@+id/button3"
                         android:layout_width="wrap_content"
-                        android:layout_height="80dp"
+                        android:layout_height="match_parent"
                         android:layout_marginRight="8dp"
-                        android:text="추가" />
+                        android:drawableTop="@android:drawable/ic_menu_share"
+                        android:text="추가"
+                        android:textSize="16dp" />
                 </TableRow>
 
                 <TableRow
@@ -150,24 +156,30 @@
                     <Button
                         android:id="@+id/button4"
                         android:layout_width="wrap_content"
-                        android:layout_height="80dp"
-                        android:layout_marginRight="8dp"
+                        android:layout_height="match_parent"
                         android:layout_marginLeft="8dp"
-                        android:text="영상통화" />
+                        android:layout_marginRight="8dp"
+                        android:drawableTop="@drawable/ic_video_chat_48"
+                        android:text="영상통화"
+                        android:textSize="16dp" />
 
                     <Button
                         android:id="@+id/button5"
                         android:layout_width="wrap_content"
-                        android:layout_height="80dp"
+                        android:layout_height="match_parent"
                         android:layout_marginRight="8dp"
-                        android:text="동행" />
+                        android:drawableTop="@drawable/ic_group_48"
+                        android:text="동행"
+                        android:textSize="16dp" />
 
                     <Button
                         android:id="@+id/button6"
                         android:layout_width="wrap_content"
-                        android:layout_height="80dp"
+                        android:layout_height="match_parent"
                         android:layout_marginRight="8dp"
-                        android:text="긴급" />
+                        android:drawableTop="@drawable/ic_support_48"
+                        android:text="긴급"
+                        android:textSize="16dp" />
                 </TableRow>
 
             </TableLayout>
