@@ -22,7 +22,7 @@
         android:theme="@style/Theme.TestRA"
         tools:targetApi="31">
         <activity
-            android:name=".SettingActivity"
+            android:name=".SettingViewActivity"
             android:exported="false"
             android:label="@string/title_activity_setting"
             android:theme="@style/Theme.TestRA.NoActionBar" />

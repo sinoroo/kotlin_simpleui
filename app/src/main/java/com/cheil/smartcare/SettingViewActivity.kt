@@ -1,23 +1,23 @@
 package com.cheil.smartcare
 
-import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
-import com.cheil.smartcare.databinding.ActivitySettingBinding
+import com.cheil.smartcare.databinding.ActivitySettingViewBinding
+import com.google.android.material.snackbar.Snackbar
 
-class SettingActivity : AppCompatActivity() {
+class SettingViewActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var binding: ActivitySettingBinding
+    private lateinit var binding: ActivitySettingViewBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        binding = ActivitySettingBinding.inflate(layoutInflater)
+        //setContentView(R.layout.activity_setting_view)
+        binding = ActivitySettingViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
@@ -25,11 +25,6 @@ class SettingActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_setting)
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
-
-        binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
     }
 
     override fun onSupportNavigateUp(): Boolean {

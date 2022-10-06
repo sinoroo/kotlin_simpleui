@@ -1,4 +1,4 @@
-package com.cheil.smartcare.ui.transform
+package com.cheil.smartcare.ui.settings
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.cheil.smartcare.R
-import com.cheil.smartcare.databinding.FragmentTransformBinding
+import com.cheil.smartcare.databinding.FragmentSettingsTopBinding
 import com.cheil.smartcare.databinding.ItemTransformBinding
 
 /**
@@ -22,9 +22,9 @@ import com.cheil.smartcare.databinding.ItemTransformBinding
  * the [RecyclerView] using LinearLayoutManager in a small screen
  * and shows items using GridLayoutManager in a large screen.
  */
-class TransformFragment : Fragment() {
+class SettingsTopFragment : Fragment() {
 
-    private var _binding: FragmentTransformBinding? = null
+    private var _binding: FragmentSettingsTopBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -35,15 +35,15 @@ class TransformFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val transformViewModel = ViewModelProvider(this).get(TransformViewModel::class.java)
-        _binding = FragmentTransformBinding.inflate(inflater, container, false)
+        val settingsTopViewModel = ViewModelProvider(this).get(SettingsTopViewModel::class.java)
+        _binding = FragmentSettingsTopBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         val recyclerView = binding.recyclerviewTransform
         val adapter = TransformAdapter()
-        //recyclerView.adapter = adapter
-        transformViewModel.texts.observe(viewLifecycleOwner) {
-            //adapter.submitList(it)
+        recyclerView.adapter = adapter
+        settingsTopViewModel.texts.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
         }
         return root
     }

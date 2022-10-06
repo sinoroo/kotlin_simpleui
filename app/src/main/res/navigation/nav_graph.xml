@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.cheil.smartcare.FirstFragment"
+        android:name="com.cheil.smartcare.ui.settings.SettingsTopFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        tools:layout="@layout/fragment_settings_top">
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"

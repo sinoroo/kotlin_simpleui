@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.cheil.smartcare.BleDeviceScanActivity
 import com.cheil.smartcare.MainActivity
-import com.cheil.smartcare.SettingActivity
+import com.cheil.smartcare.SettingViewActivity
 import com.cheil.smartcare.databinding.FragmentMainBinding
 import com.google.android.material.snackbar.Snackbar
 
@@ -36,7 +36,7 @@ class MainFragment : Fragment() {
         val root: View = binding.root
 
         binding.imageButtonConfig?.setOnClickListener{ view ->
-            val nextIntent = Intent(activity as MainActivity, SettingActivity::class.java)
+            val nextIntent = Intent(activity as MainActivity, SettingViewActivity::class.java)
             startActivity(nextIntent)
         }
         return root
