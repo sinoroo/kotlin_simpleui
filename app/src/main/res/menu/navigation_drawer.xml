@@ -5,20 +5,8 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_transform"
+            android:id="@+id/nav_main_fragment"
             android:icon="@drawable/ic_camera_black_24dp"
             android:title="@string/menu_home" />
-        <item
-            android:id="@+id/nav_reflow"
-            android:icon="@drawable/ic_gallery_black_24dp"
-            android:title="@string/menu_securityOffice" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_slideshow_black_24dp"
-            android:title="@string/menu_lights" />
-        <item
-            android:id="@+id/nav_settings"
-            android:icon="@drawable/ic_settings_black_24dp"
-            android:title="@string/menu_settings" />
     </group>
 </menu>

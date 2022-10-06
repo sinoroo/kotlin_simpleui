@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.slideshow.SlideshowFragment">
+    tools:context=".ui.main.MainFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_centerpane"
@@ -117,34 +117,26 @@
                     android:layout_height="match_parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent">
+                    <ImageButton
+                        android:id="@+id/image_Button_youtube"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="Youtube"
+                        android:src="@drawable/ic_youtube_48" />
 
-                    <Button
-                        android:id="@+id/button"
+                    <ImageButton
+                        android:id="@+id/image_button_call"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginRight="8dp"
-                        android:drawableTop="@drawable/ic_youtube_48"
-                        android:text="유튜브"
-                        android:textSize="16sp" />
+                        android:contentDescription="Call"
+                        android:src="@android:drawable/ic_menu_call" />
 
-                    <Button
-                        android:id="@+id/button2"
+                    <ImageButton
+                        android:id="@+id/imageButton_config"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginRight="8dp"
-                        android:drawableTop="@android:drawable/ic_menu_call"
-                        android:text="생활"
-                        android:textSize="16dp" />
-
-                    <Button
-                        android:id="@+id/button3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="8dp"
-                        android:drawableTop="@android:drawable/ic_menu_share"
-                        android:text="추가"
-                        android:textSize="16dp" />
+                        android:contentDescription="NotDefined"
+                        android:src="@android:drawable/ic_menu_share" />
                 </TableRow>
 
                 <TableRow
@@ -153,33 +145,82 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent">
 
-                    <Button
-                        android:id="@+id/button4"
+                    <TextView
+                        android:id="@+id/text_youtube"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="유튜브"
+                        android:textAlignment="center" />
+
+                    <TextView
+                        android:id="@+id/textCall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="통화"
+                        android:textAlignment="center" />
+
+                    <TextView
+                        android:id="@+id/text_config"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="설정"
+                        android:textAlignment="center" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <ImageButton
+                        android:id="@+id/imageButtonVideoChat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="VideoChat"
+                        android:src="@drawable/ic_video_chat_48" />
+
+                    <ImageButton
+                        android:id="@+id/imageButtonGoWith"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginRight="8dp"
-                        android:drawableTop="@drawable/ic_video_chat_48"
+                        android:contentDescription="GoWith"
+                        android:src="@drawable/ic_group_48" />
+
+                    <ImageButton
+                        android:id="@+id/imageButtonEmergency"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:contentDescription="Emergency"
+                        android:src="@drawable/ic_support_48" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TextView
+                        android:id="@+id/textVideoChat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:text="영상통화"
-                        android:textSize="16dp" />
+                        android:textAlignment="center" />
 
-                    <Button
-                        android:id="@+id/button5"
+                    <TextView
+                        android:id="@+id/textGoWith"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="8dp"
-                        android:drawableTop="@drawable/ic_group_48"
+                        android:layout_height="wrap_content"
                         android:text="동행"
-                        android:textSize="16dp" />
+                        android:textAlignment="center" />
 
-                    <Button
-                        android:id="@+id/button6"
+                    <TextView
+                        android:id="@+id/textEmergency"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="8dp"
-                        android:drawableTop="@drawable/ic_support_48"
+                        android:layout_height="wrap_content"
                         android:text="긴급"
-                        android:textSize="16dp" />
+                        android:textAlignment="center" />
                 </TableRow>
 
             </TableLayout>

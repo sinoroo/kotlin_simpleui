@@ -21,11 +21,16 @@
         android:testOnly="true"
         android:theme="@style/Theme.TestRA"
         tools:targetApi="31">
-
+        <activity
+            android:name=".SettingActivity"
+            android:exported="false"
+            android:label="@string/title_activity_setting"
+            android:theme="@style/Theme.TestRA.NoActionBar" />
         <activity
             android:name=".LoginAttemptsActivity"
             android:exported="true"
             android:noHistory="true">
+
             <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,11 +46,12 @@
             android:resizeableActivity="true"
             android:theme="@style/Theme.TestRA.NoActionBar"
             tools:targetApi="24">
-
             <intent-filter>
+
                 <!-- 시작 시 자동 실행을 위해 필요한 선언 -->
 
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
 
                 <!-- 홈 런처를 만들 때 필요한 선언 -->
@@ -55,12 +61,12 @@
                 -->
                 <!-- 홈 런처를 만들 때 필요한 선언 -->
             </intent-filter>
-
         </activity>
         <activity
             android:name=".BleDeviceScanActivity"
-            android:parentActivityName=".MainActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+
         <receiver
             android:name=".receivers.BootCompleteReceiver"
             android:directBootAware="true"

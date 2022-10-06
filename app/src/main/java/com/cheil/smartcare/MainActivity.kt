@@ -1,12 +1,9 @@
 package com.cheil.smartcare
 
 import android.app.admin.DevicePolicyManager
-import android.content.ComponentName
-import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -15,7 +12,6 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.cheil.smartcare.databinding.ActivityMainBinding
-import com.cheil.smartcare.receivers.KioskDeviceAdminReceiver
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 
@@ -40,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         // 상단 툴바 제거
         supportActionBar?.hide()
         //supportActionBar!!.hide()
-
+        /*
         val componentName = ComponentName(this, KioskDeviceAdminReceiver::class.java)
         val policyManager = getSystemService(DEVICE_POLICY_SERVICE) as DevicePolicyManager
 
@@ -59,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         if (policyManager.isLockTaskPermitted(packageName)) {
             startLockTask()
         }
-
+        */
         binding.appBarMain.fab?.setOnClickListener { view ->
             Snackbar.make(view, "Voice Recognition", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
@@ -71,7 +67,7 @@ class MainActivity : AppCompatActivity() {
         binding.navView?.let {
             appBarConfiguration = AppBarConfiguration(
                 setOf(
-                    R.id.nav_transform, R.id.nav_reflow, R.id.nav_slideshow, R.id.nav_settings
+                    R.id.nav_main_fragment, R.id.nav_settings
                 ),
                 binding.drawerLayout
             )
@@ -82,7 +78,7 @@ class MainActivity : AppCompatActivity() {
         binding.appBarMain.contentMain.bottomNavView?.let {
             appBarConfiguration = AppBarConfiguration(
                 setOf(
-                    R.id.nav_transform, R.id.nav_reflow, R.id.nav_slideshow
+                    R.id.nav_main_fragment
                 )
             )
             setupActionBarWithNavController(navController, appBarConfiguration)
@@ -94,12 +90,14 @@ class MainActivity : AppCompatActivity() {
         val result = super.onCreateOptionsMenu(menu)
         // Using findViewById because NavigationView exists in different layout files
         // between w600dp and w1240dp
+
         val navView: NavigationView? = findViewById(R.id.nav_view)
         if (navView == null) {
             // The navigation drawer already has the items including the items in the overflow menu
             // We only inflate the overflow menu if the navigation drawer isn't visible
             menuInflater.inflate(R.menu.overflow, menu)
         }
+
         return result
     }
 
