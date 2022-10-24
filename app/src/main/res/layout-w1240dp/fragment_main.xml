@@ -8,56 +8,45 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_centerpane"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_marginStart="15dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
         app:layout_constraintEnd_toStartOf="@+id/layout_rightpane"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="1dp">
 
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="293dp"
+        <TextClock
+            android:id="@+id/textDateNow"
+            android:layout_width="wrap_content"
             android:layout_height="71dp"
             android:layout_marginStart="30dp"
             android:layout_marginTop="100dp"
             android:layout_marginEnd="40dp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="2022년 8월 24일"
+            android:layout_marginLeft="40dp"
+            android:format12Hour="yyyy-MM-dd"
+            android:format24Hour="yyyy-MM-dd"
             android:textSize="40sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textView2"
+        <TextClock
+            android:id="@+id/textClockNow"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="110dp"
-            android:text="오전"
-            android:textSize="40sp"
-            app:layout_constraintEnd_toStartOf="@+id/textView3"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView1" />
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="58dp"
             android:layout_marginEnd="40dp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="09:40"
-            android:textSize="80sp"
+            android:layout_marginLeft="40dp"
+            android:format12Hour="a hh:mm:ss"
+            android:format24Hour="hh:mm:ss"
+            android:textSize="100sp"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/textView2"
-            app:layout_constraintTop_toBottomOf="@+id/textView1" />
+            app:layout_constraintTop_toBottomOf="@+id/textDateNow"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

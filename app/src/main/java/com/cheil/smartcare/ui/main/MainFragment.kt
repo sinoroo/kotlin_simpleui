@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.TextClock
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.cheil.smartcare.BleDeviceScanActivity
@@ -39,6 +40,10 @@ class MainFragment : Fragment() {
             val nextIntent = Intent(activity as MainActivity, SettingViewActivity::class.java)
             startActivity(nextIntent)
         }
+        
+        val date:TextClock = binding.textDateNow!!
+        date!!.format12Hour = "yyyy년 MM월 dd일"
+        
         return root
     }
 

@@ -1,10 +1,19 @@
 package com.cheil.smartcare
 
+import android.Manifest
 import android.app.admin.DevicePolicyManager
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.speech.RecognitionListener
+import android.speech.RecognizerIntent
+import android.speech.SpeechRecognizer
 import android.view.*
+import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -13,7 +22,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.cheil.smartcare.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView
-import com.google.android.material.snackbar.Snackbar
+import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -22,7 +31,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var mDpm: DevicePolicyManager
     //private var PACKAGE_NAME: String? = null
+    private var speechRecognizer: SpeechRecognizer? = null
+    private var REQUEST_CODE = 1
 
+    private var speechRecognizerIntent: Intent? = null
     var mDecorView: View? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,9 +68,19 @@ class MainActivity : AppCompatActivity() {
             startLockTask()
         }
         */
+        if(Build.VERSION.SDK_INT >=23)
+            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.INTERNET, android.Manifest.permission.RECORD_AUDIO), REQUEST_CODE)
+
+        // 안드로이드 6.0버전 이상인지 체크해서 퍼미션 체크
+
+        // 안드로이드 6.0버전 이상인지 체크해서 퍼미션 체크
+        if (Build.VERSION.SDK_INT >= 23) {
+            ActivityCompat.requestPermissions(this, arrayOf( Manifest.permission.INTERNET, Manifest.permission.RECORD_AUDIO), REQUEST_CODE)
+        }
+
         binding.appBarMain.fab?.setOnClickListener { view ->
-            Snackbar.make(view, "Voice Recognition", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+            //Snackbar.make(view, "Voice Recognition", Snackbar.LENGTH_LONG).setAction("Action", null).show()
+            startSTT()
         }
         val navHostFragment =
             (supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment?)!!
@@ -163,5 +185,79 @@ class MainActivity : AppCompatActivity() {
                     or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
         }
 
+    }
+
+
+    /***
+     *  SpeechToText 설정 및 동작
+     */
+    private  fun startSTT() {
+        val speechRecognizerIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply{
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.KOREAN)
+        }
+
+        speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this).apply {
+            setRecognitionListener(recognitionListener)
+            startListening(speechRecognizerIntent)
+        }
+    }
+
+    /***
+     *  SpeechToText 기능 세팅
+     */
+    private val recognitionListener: RecognitionListener = object : RecognitionListener {
+        override fun onReadyForSpeech(params: Bundle) {
+            // 말하기 시작할 준비가되면 호출
+            Toast.makeText(applicationContext, "음성인식 시작", Toast.LENGTH_SHORT).show()
+        }
+
+        override fun onBeginningOfSpeech() {
+            // 말하기 시작했을 때 호출
+        }
+
+        override fun onRmsChanged(rmsdB: Float) {
+            // 입력받는 소리의 크기를 알려줌
+        }
+
+        override fun onBufferReceived(buffer: ByteArray) {
+            // 말을 시작하고 인식이 된 단어를 buffer에 담음
+        }
+
+        override fun onEndOfSpeech() {
+            // 말하기를 중지하면 호출
+        }
+
+        override fun onError(error: Int) {
+            // 네트워크 또는 인식 오류가 발생했을 때 호출
+            val message: String
+            message = when (error) {
+                SpeechRecognizer.ERROR_AUDIO -> "오디오 에러"
+                SpeechRecognizer.ERROR_CLIENT -> "클라이언트 에러"
+                SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS -> "퍼미션 없음"
+                SpeechRecognizer.ERROR_NETWORK -> "네트워크 에러"
+                SpeechRecognizer.ERROR_NETWORK_TIMEOUT -> "네트웍 타임아웃"
+                SpeechRecognizer.ERROR_NO_MATCH -> "찾을 수 없음"
+                SpeechRecognizer.ERROR_RECOGNIZER_BUSY -> "RECOGNIZER 가 바쁨"
+                SpeechRecognizer.ERROR_SERVER -> "서버가 이상함"
+                SpeechRecognizer.ERROR_SPEECH_TIMEOUT -> "말하는 시간초과"
+                else -> "알 수 없는 오류임"
+            }
+            Toast.makeText(applicationContext, "에러 발생 : $message", Toast.LENGTH_SHORT).show()
+        }
+
+        override fun onResults(results: Bundle) {
+            // 인식 결과가 준비되면 호출
+            // 말을 하면 ArrayList에 단어를 넣고 textView에 단어를 이어줌
+            Toast.makeText(this@MainActivity, results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)!![0], Toast.LENGTH_LONG).show()
+        }
+
+        override fun onPartialResults(partialResults: Bundle) {
+            // 부분 인식 결과를 사용할 수 있을 때 호출
+        }
+
+        override fun onEvent(eventType: Int, params: Bundle) {
+            // 향후 이벤트를 추가하기 위해 예약
+        }
     }
 }

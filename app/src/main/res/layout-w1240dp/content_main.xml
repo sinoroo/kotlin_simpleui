@@ -20,13 +20,15 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_marginEnd="884dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="60dp"
         android:contentDescription="@string/fab_content_description"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:maxImageSize="100dp"
+        app:fabCustomSize="100dp"
         app:srcCompat="@android:drawable/ic_btn_speak_now" />
 
     <androidx.fragment.app.FragmentContainerView
