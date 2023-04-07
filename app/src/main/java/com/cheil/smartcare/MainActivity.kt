@@ -3,29 +3,36 @@ package com.cheil.smartcare
 import android.Manifest
 import android.app.admin.DevicePolicyManager
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
+import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.cheil.smartcare.continuousSpeechRecognizer.interfaces.RecognitionCallback
+import com.cheil.smartcare.continuousSpeechRecognizer.managers.ContinuousRecognitionManager
+import com.cheil.smartcare.continuousSpeechRecognizer.models.RecognitionStatus
 import com.cheil.smartcare.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView
 import java.util.*
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), RecognitionCallback {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
@@ -36,6 +43,18 @@ class MainActivity : AppCompatActivity() {
 
     private var speechRecognizerIntent: Intent? = null
     var mDecorView: View? = null
+
+    companion object {
+        /**
+         * Put any keyword that will trigger the speech recognition
+         */
+        private const val ACTIVATION_KEYWORD = "OK test"
+        private const val RECORD_AUDIO_REQUEST_CODE = 101
+    }
+
+    private val recognitionManager: ContinuousRecognitionManager by lazy {
+        ContinuousRecognitionManager(this, activationKeyword = ACTIVATION_KEYWORD, callback = this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,10 +97,13 @@ class MainActivity : AppCompatActivity() {
             ActivityCompat.requestPermissions(this, arrayOf( Manifest.permission.INTERNET, Manifest.permission.RECORD_AUDIO), REQUEST_CODE)
         }
 
+        /*
         binding.appBarMain.fab?.setOnClickListener { view ->
             //Snackbar.make(view, "Voice Recognition", Snackbar.LENGTH_LONG).setAction("Action", null).show()
             startSTT()
         }
+        */
+        recognitionManager.createRecognizer()
         val navHostFragment =
             (supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment?)!!
         val navController = navHostFragment.navController
@@ -106,6 +128,36 @@ class MainActivity : AppCompatActivity() {
             setupActionBarWithNavController(navController, appBarConfiguration)
             it.setupWithNavController(navController)
         }
+    }
+
+    override fun onDestroy() {
+        recognitionManager.destroyRecognizer()
+        super.onDestroy()
+    }
+
+    override fun onPause() {
+        stopRecognition()
+        super.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) {
+            startRecognition()
+        }
+    }
+
+    private fun startRecognition() {
+        //progressBar.isIndeterminate = false
+        //progressBar.visibility = View.VISIBLE
+        recognitionManager.startRecognition()
+    }
+
+    private fun stopRecognition() {
+        //progressBar.isIndeterminate = true
+        //progressBar.visibility = View.INVISIBLE
+        recognitionManager.stopRecognition()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -138,10 +190,6 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
-    override fun onResume() {
-        super.onResume()
-        //hideSystemUI()
-    }
 
 
     fun hideSystemUI()
@@ -258,6 +306,93 @@ class MainActivity : AppCompatActivity() {
 
         override fun onEvent(eventType: Int, params: Bundle) {
             // 향후 이벤트를 추가하기 위해 예약
+        }
+    }
+
+    private fun getErrorText(errorCode: Int): String = when (errorCode) {
+        SpeechRecognizer.ERROR_AUDIO -> "Audio recording error"
+        SpeechRecognizer.ERROR_CLIENT -> "Client side error"
+        SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS -> "Insufficient permissions"
+        SpeechRecognizer.ERROR_NETWORK -> "Network error"
+        SpeechRecognizer.ERROR_NETWORK_TIMEOUT -> "Network timeout"
+        SpeechRecognizer.ERROR_NO_MATCH -> "No match"
+        SpeechRecognizer.ERROR_RECOGNIZER_BUSY -> "RecognitionService busy"
+        SpeechRecognizer.ERROR_SERVER -> "Error from server"
+        SpeechRecognizer.ERROR_SPEECH_TIMEOUT -> "No speech input"
+        else -> "Didn't understand, please try again."
+    }
+
+    override fun onBeginningOfSpeech() {
+        Log.i("Recognition","onBeginningOfSpeech")
+    }
+
+    override fun onBufferReceived(buffer: ByteArray) {
+        Log.i("Recognition", "onBufferReceived: $buffer")
+    }
+
+    override fun onEndOfSpeech() {
+        Log.i("Recognition","onEndOfSpeech")
+    }
+
+    override fun onError(errorCode: Int) {
+        val errorMessage = getErrorText(errorCode)
+        Log.i("Recognition","onError: $errorMessage")
+        //textView.text = errorMessage
+    }
+
+    override fun onEvent(eventType: Int, params: Bundle) {
+        Log.i("Recognition","onEvent")
+    }
+
+    override fun onReadyForSpeech(params: Bundle) {
+        Log.i("Recognition","onReadyForSpeech")
+    }
+
+    override fun onRmsChanged(rmsdB: Float) {
+        //progressBar.progress = rmsdB.toInt()
+    }
+
+    override fun onPrepared(status: RecognitionStatus) {
+        when (status) {
+            RecognitionStatus.SUCCESS -> {
+                Log.i("Recognition","onPrepared: Success")
+                //textView.text = "Recognition ready"
+                Toast.makeText(applicationContext, "Recognition ready", Toast.LENGTH_SHORT).show()
+            }
+            RecognitionStatus.UNAVAILABLE -> {
+                Log.i("Recognition", "onPrepared: Failure or unavailable")
+                AlertDialog.Builder(this)
+                    .setTitle("Speech Recognizer unavailable")
+                    .setMessage("Your device does not support Speech Recognition. Sorry!")
+                    .setPositiveButton(android.R.string.ok, null)
+                    .show()
+            }
+        }
+    }
+
+    override fun onKeywordDetected() {
+        Log.i("Recognition","keyword detected !!!")
+        //extView.text = "Keyword detected"
+        Toast.makeText(applicationContext, "Keyword detected", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onPartialResults(results: List<String>) {}
+
+    override fun onResults(results: List<String>, scores: FloatArray?) {
+        val text = results.joinToString(separator = "\n")
+        Log.i("Recognition","onResults : $text")
+        //textView.text = text
+        Toast.makeText(applicationContext, text, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            RECORD_AUDIO_REQUEST_CODE -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    startRecognition()
+                }
+            }
         }
     }
 }
