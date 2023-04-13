@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity(), RecognitionCallback {
         /**
          * Put any keyword that will trigger the speech recognition
          */
-        private const val ACTIVATION_KEYWORD = "OK test"
+        private const val ACTIVATION_KEYWORD = "제일전기"
         private const val RECORD_AUDIO_REQUEST_CODE = 101
     }
 
@@ -87,11 +87,6 @@ class MainActivity : AppCompatActivity(), RecognitionCallback {
             startLockTask()
         }
         */
-        if(Build.VERSION.SDK_INT >=23)
-            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.INTERNET, android.Manifest.permission.RECORD_AUDIO), REQUEST_CODE)
-
-        // 안드로이드 6.0버전 이상인지 체크해서 퍼미션 체크
-
         // 안드로이드 6.0버전 이상인지 체크해서 퍼미션 체크
         if (Build.VERSION.SDK_INT >= 23) {
             ActivityCompat.requestPermissions(this, arrayOf( Manifest.permission.INTERNET, Manifest.permission.RECORD_AUDIO), REQUEST_CODE)

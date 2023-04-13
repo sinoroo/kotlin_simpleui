@@ -11,6 +11,8 @@ import android.speech.SpeechRecognizer
 import androidx.core.content.getSystemService
 import com.cheil.smartcare.continuousSpeechRecognizer.interfaces.RecognitionCallback
 import com.cheil.smartcare.continuousSpeechRecognizer.models.RecognitionStatus
+import java.util.*
+import android.util.Log
 
 class ContinuousRecognitionManager(
         private val context: Context,
@@ -25,12 +27,14 @@ class ContinuousRecognitionManager(
 
     private val recognizerIntent by lazy {
         Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
-            putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH)
-            putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, context.packageName)
-            putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 3)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                putExtra(RecognizerIntent.EXTRA_PREFER_OFFLINE, true)
-            }
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.KOREAN)
+            //putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH)
+            //putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, context.packageName)
+            //putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 3)
+            //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            //    putExtra(RecognizerIntent.EXTRA_PREFER_OFFLINE, true)
+            //}
         }
     }
 
@@ -133,11 +137,14 @@ class ContinuousRecognitionManager(
         val matches = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
         val scores = results.getFloatArray(SpeechRecognizer.CONFIDENCE_SCORES)
         if (matches != null) {
+            Log.i("ContinuousRecognitionManager", matches.toString())
             if (isActivated) {
+                Log.i("ContinuousRecognitionManager", "Section B")
                 isActivated = false
                 callback?.onResults(matches, scores)
                 stopRecognition()
             } else {
+                Log.i("ContinuousRecognitionManager","Section A")
                 matches.firstOrNull { it.contains(other = activationKeyword, ignoreCase = true) }
                         ?.let {
                             isActivated = true
