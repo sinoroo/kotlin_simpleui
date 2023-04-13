@@ -106,10 +106,12 @@ class ContinuousRecognitionManager(
     }
 
     override fun onError(errorCode: Int) {
-        if (isActivated) {
-            callback?.onError(errorCode)
+        if( SpeechRecognizer.ERROR_NO_MATCH != errorCode){
+            if (isActivated) {
+                callback?.onError(errorCode)
+            }
+            isActivated = false
         }
-        isActivated = false
 
         when (errorCode) {
             SpeechRecognizer.ERROR_RECOGNIZER_BUSY -> cancelRecognition()

@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity(), RecognitionCallback {
         /**
          * Put any keyword that will trigger the speech recognition
          */
-        private const val ACTIVATION_KEYWORD = "제일전기"
+        private const val ACTIVATION_KEYWORD = "빅스비"
         private const val RECORD_AUDIO_REQUEST_CODE = 101
     }
 
