@@ -22,6 +22,7 @@ class ContinuousRecognitionManager(
 ) : RecognitionListener {
 
     private var isActivated: Boolean = false
+    private var isMuted: Boolean = true
     private val speech: SpeechRecognizer by lazy { SpeechRecognizer.createSpeechRecognizer(context) }
     private val audioManager: AudioManager? = context.getSystemService()
 
@@ -66,6 +67,7 @@ class ContinuousRecognitionManager(
 
     @Suppress("DEPRECATION")
     private fun muteRecognition(mute: Boolean) {
+        Log.i("ContinuousRecognitionManager", "Mute: "+ mute)
         audioManager?.let {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 val flag = if (mute) AudioManager.ADJUST_MUTE else AudioManager.ADJUST_UNMUTE
@@ -85,15 +87,17 @@ class ContinuousRecognitionManager(
     }
 
     override fun onBeginningOfSpeech() {
+        Log.i("ContinuousRecognitionManager", "onBeginningOfSpeech")
         callback?.onBeginningOfSpeech()
     }
 
     override fun onReadyForSpeech(params: Bundle) {
-        muteRecognition(shouldMute || !isActivated)
+        muteRecognition(shouldMute || isMuted)
         callback?.onReadyForSpeech(params)
     }
 
     override fun onBufferReceived(buffer: ByteArray) {
+        Log.i("ContinuousRecognitionManager", "onBufferReceived")
         callback?.onBufferReceived(buffer)
     }
 
@@ -102,10 +106,12 @@ class ContinuousRecognitionManager(
     }
 
     override fun onEndOfSpeech() {
+        Log.i("ContinuousRecognitionManager", "onEndOfSpeech")
         callback?.onEndOfSpeech()
     }
 
     override fun onError(errorCode: Int) {
+        Log.i("ContinuousRecognitionManager", "onError: " + errorCode)
         if( SpeechRecognizer.ERROR_NO_MATCH != errorCode){
             if (isActivated) {
                 callback?.onError(errorCode)
@@ -143,14 +149,18 @@ class ContinuousRecognitionManager(
             if (isActivated) {
                 Log.i("ContinuousRecognitionManager", "Section B")
                 isActivated = false
+                muteRecognition(false)
                 callback?.onResults(matches, scores)
+                muteRecognition(true)
                 stopRecognition()
             } else {
                 Log.i("ContinuousRecognitionManager","Section A")
                 matches.firstOrNull { it.contains(other = activationKeyword, ignoreCase = true) }
                         ?.let {
                             isActivated = true
+                            muteRecognition(false)
                             callback?.onKeywordDetected()
+                            muteRecognition(true)
                         }
                 startRecognition()
             }
